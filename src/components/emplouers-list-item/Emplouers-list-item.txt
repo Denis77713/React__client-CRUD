@@ -1,0 +1,57 @@
+import React from "react"
+import "./employees-list-item.css"
+//  
+//
+// index - это номер обьекта, значение которого меняем
+// data - основной массив с обьектами который отрисовываем
+// setData - меняет состояние data
+// cookie - премия false или true
+const EmplouersListItem = ({ name, maney, cookie, setData, data, index }) => {
+  //
+  //
+  // Если cookie true добавит класс increase 
+  let styleCookie = "list-group-item d-flex justify-content-between"
+  if (cookie) {
+    styleCookie += " increase"
+  }
+  //
+  //
+  return (
+    <li className={styleCookie}>
+      <span className="list-group-item-label">{name}</span>
+      <input
+        className="list-group-item-input"
+        type="text"
+        defaultValue={maney}
+      />
+      <div className="d-flex justify-content-center align-items-center">
+        <button
+          className="button btn-cookie btn-sm"
+          onClick={() => {
+            // Отсюда меняем изначальный массив data, точнее свойство конкретного обьекта
+            // По клику меняем состояние массива
+            // map меняет элементы массива, а это обьекты
+            setData(
+              data.map((element, indexInner) => {
+                // Если index (номер передаваемого в компонент обьекта совпадает с номером из изначального массива)
+                if (indexInner === index) {
+                  // Находим свойство куки и меняем на противоположное
+                  element.cookie = !cookie
+                }
+                return element
+              })
+            )
+          }}
+        >
+          <i className="bi bi-cookie"></i>
+        </button>
+        <button className="button btn-trash btn-sm">
+          <i className="bi bi-trash"></i>
+        </button>
+      </div>
+      <i className="bi bi-star fa-star"></i>
+    </li>
+  )
+}
+
+export default EmplouersListItem
